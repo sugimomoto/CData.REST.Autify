@@ -1,0 +1,34 @@
+<api:script xmlns:api="http://apiscript.com/ns?v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- See Column Definitions to specify column behavior and use XPaths to extract column values from JSON. -->
+  <api:info title="TestResults" desc="Generated schema file." xmlns:other="http://apiscript.com/ns?v1">
+    <!-- You can modify the name, type, and column size here. -->
+    <attr name="Id"                              xs:type="integer"  readonly="false"             other:xPath="/json/id"                                                                            />
+    <attr name="Status"                          xs:type="string"   readonly="false"             other:xPath="/json/status"                                                                        />
+    <attr name="Duration"                        xs:type="integer"  readonly="false"             other:xPath="/json/duration"                                                                      />
+    <attr name="StartedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/started_at"                                                                    />
+    <attr name="FinishedAt"                     xs:type="datetime" readonly="false"              other:xPath="/json/finished_at"                                                                   />
+    <attr name="CreatedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/created_at"                                                                    />
+    <attr name="UpdatedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/updated_at"                                                                    />
+  </api:info>
+
+  <api:set attr="DataModel" value="Document" />
+
+  <api:set attr="page" value="[rows@next | def('0') | add()]" />
+  <api:set attr="per_page" value="100"/>
+  <api:set attr="URI" value="https://app.autify.com/api/v1//projects/[_connection.ProjectId]/results?page=[page]&per_page=[per_page]" />
+  <rsb:set attr="header:name" value="Authorization"/>
+  <rsb:set attr="header:value" value="Bearer [_connection.ApiKey]"/>
+  <api:set attr="enablepaging" value="TRUE" />
+
+  <api:set attr="JSONPath" value="$." />
+
+  <!-- The GET method corresponds to SELECT. Here you can override the default processing of the SELECT statement. The results of processing are pushed to the schema's output. See SELECT Execution for more information. -->
+  <api:script method="GET">
+    <api:call op="jsonproviderGet">
+      <api:set attr="rows@next" value="[page]" />
+      <api:push/>
+    </api:call>
+  </api:script>
+
+</api:script>

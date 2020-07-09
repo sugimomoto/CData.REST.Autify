@@ -1,0 +1,42 @@
+<api:script xmlns:api="http://apiscript.com/ns?v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- See Column Definitions to specify column behavior and use XPaths to extract column values from JSON. -->
+  <api:info title="TestCaseResults" desc="Generated schema file." xmlns:other="http://apiscript.com/ns?v1" other:queryslicercolumn="TestResultId">
+    <!-- You can modify the name, type, and column size here. -->
+    <attr name="TestResultId"                         xs:type="integer"  readonly="false"                      other:pseudocolumn="true"     other:filter="{TestResultId}" references="TestResults.Id"             />
+    <attr name="TestPlanCapabilityResultId"                         xs:type="integer"  readonly="false"              other:xPath="/json/test_plan_capability_results/id"                         />
+    <attr name="CapabilityId"              xs:type="integer"  readonly="false"              other:xPath="/json/test_plan_capability_results/capability/id"              />
+    <attr name="Os"              xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/capability/os"              />
+    <attr name="OsVersion"      xs:type="unknown"  readonly="false"              other:xPath="/json/test_plan_capability_results/capability/os_version"      />
+    <attr name="Browser"         xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/capability/browser"         />
+    <attr name="BrowserVersion" xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/capability/browser_version" />
+    <attr name="Device"          xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/capability/device"          />
+    <attr name="CreatedAt"      xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/capability/created_at"      />
+    <attr name="UpdatedAt"      xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/capability/updated_at"      />
+    <attr name="TestCaseResultsId"                              xs:type="integer"  readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/id"                                                                            />
+    <attr name="TestCaseId"                    xs:type="integer"  readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/test_case_id"                                                                  />
+    <attr name="Status"                          xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/status"                                                                        />
+    <attr name="Duration"                        xs:type="integer"  readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/duration"                                                                      />
+    <attr name="StartedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/started_at"                                                                    />
+    <attr name="FinishedAt"                     xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/finished_at"                                                                   />
+    <attr name="CreatedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/created_at"                                                                    />
+    <attr name="UpdatedAt"                      xs:type="datetime" readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/updated_at"                                                                    />
+    <attr name="ProjectUrl"                     xs:type="string"   readonly="false"              other:xPath="/json/test_plan_capability_results/test_case_results/project_url"                                                                   />
+  </api:info>
+
+  <api:set attr="DataModel" value="FlattenedDocuments" />
+
+  <api:set attr="URI" value="https://app.autify.com/api/v1//projects/[_connection.ProjectId]/results/{TestResultId}" />
+  <rsb:set attr="header:name" value="Authorization"/>
+  <rsb:set attr="header:value" value="Bearer [_connection.ApiKey]"/>
+
+  <api:set attr="JSONPath" value="$.test_plan_capability_results;$.test_plan_capability_results.test_case_results" />
+
+  <!-- The GET method corresponds to SELECT. Here you can override the default processing of the SELECT statement. The results of processing are pushed to the schema's output. See SELECT Execution for more information. -->
+  <api:script method="GET">
+    <api:call op="jsonproviderGet">
+      <api:push/>
+    </api:call>
+  </api:script>
+
+</api:script>
